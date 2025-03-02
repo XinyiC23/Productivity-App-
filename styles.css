@@ -8,6 +8,11 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -18,42 +23,44 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-header h1 {
-  text-align: center;
-  color: #007bff;
+body.dark-mode .container {
+  background-color: #444;
+  color: #fff;
 }
 
 /* Tabs */
 nav {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+body.dark-mode nav {
+  background: #444;
 }
 
 .tab-button {
   padding: 10px 20px;
   border: none;
-  background: #007bff;
-  color: #fff;
-  border-radius: 5px;
+  background: transparent;
+  color: #333;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: color 0.3s;
+}
+
+body.dark-mode .tab-button {
+  color: #fff;
 }
 
 .tab-button.active {
-  background: #0056b3;
-}
-
-.tab-button:hover {
-  background: #0056b3;
-}
-
-.tab-pane {
-  display: none;
-}
-
-.tab-pane.active {
-  display: block;
+  color: var(--accent-color);
 }
 
 /* Timer */
@@ -85,6 +92,12 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+}
+
+#task-list li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
 /* Notes */
@@ -95,6 +108,22 @@ nav {
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
+}
+
+#notes-list {
+  list-style: none;
+  padding: 0;
+}
+
+#notes-list li {
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Settings */
@@ -110,21 +139,11 @@ input[type="number"] {
   border-radius: 5px;
 }
 
-/* Dark Mode */
+/* Accent Color */
+:root {
+  --accent-color: #007bff;
+}
+
 body.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
-body.dark-mode .container {
-  background-color: #444;
-  color: #fff;
-}
-
-body.dark-mode .tab-button {
-  background-color: #555;
-}
-
-body.dark-mode .tab-button.active {
-  background-color: #007bff;
+  --accent-color: #1e90ff;
 }
