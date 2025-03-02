@@ -3,8 +3,8 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
   display: flex;
   justify-content: center;
@@ -12,16 +12,22 @@ body {
   height: 100vh;
 }
 
+:root {
+  --accent-color: #666;
+  --background-color: #f4f4f9;
+  --text-color: #333;
+}
+
 body.dark-mode {
-  background-color: #333;
-  color: #fff;
+  --background-color: #333;
+  --text-color: #fff;
 }
 
 .container {
   width: 100%;
   max-width: 400px;
   height: 90vh;
-  background: #fff;
+  background: var(--background-color);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -29,11 +35,6 @@ body.dark-mode {
   justify-content: space-between;
   overflow: hidden;
   transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode .container {
-  background-color: #444;
-  color: #fff;
 }
 
 /* Banner */
@@ -122,12 +123,13 @@ body.dark-mode .container {
 
 /* Notes */
 #notes-input {
-  width: 100%;
+  width: 90%;
   height: 100px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
+  margin: 10px 0;
 }
 
 #notes-list, #folders-list {
@@ -211,13 +213,4 @@ body.dark-mode .tab-button {
 .settings-row {
   margin: 10px 0;
   width: 100%;
-}
-
-/* Accent Color */
-:root {
-  --accent-color: #666;
-}
-
-body.dark-mode {
-  --accent-color: #ccc;
 }
