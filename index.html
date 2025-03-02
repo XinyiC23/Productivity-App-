@@ -19,10 +19,8 @@
     <div class="tab-content">
       <!-- Focus Tab (Timer + Pomodoro) -->
       <div id="focus" class="tab-pane active">
-        <h2>Focus</h2>
         <!-- Timer Section -->
         <div class="section">
-          <h3>Timer</h3>
           <div id="timer-display">00:00</div>
           <button id="start-timer">Start</button>
           <button id="stop-timer">Stop</button>
@@ -30,7 +28,6 @@
         </div>
         <!-- Pomodoro Section -->
         <div class="section">
-          <h3>Pomodoro</h3>
           <div id="pomodoro-display" contenteditable="true">25:00</div>
           <button id="start-pomodoro">Start</button>
           <button id="stop-pomodoro">Stop</button>
@@ -40,7 +37,6 @@
 
       <!-- To-Do Tab -->
       <div id="todo" class="tab-pane">
-        <h2>To-Do List</h2>
         <input type="text" id="task-input" placeholder="Add a new task">
         <button id="add-task">Add</button>
         <ul id="task-list"></ul>
@@ -49,7 +45,6 @@
 
       <!-- Notes Tab -->
       <div id="notes" class="tab-pane">
-        <h2>Notes</h2>
         <div class="notes-controls">
           <button id="select-notes">Select</button>
           <button id="create-folder">Create Folder</button>
@@ -75,12 +70,11 @@
           </label>
         </div>
         <ul id="notes-list"></ul>
-        <ul id="folders-list"></ul>
+        <div id="folders-list"></div>
       </div>
 
       <!-- Settings Tab -->
       <div id="settings" class="tab-pane">
-        <h2>Settings</h2>
         <div class="settings-row">
           <label>
             <input type="checkbox" id="dark-mode"> Dark Mode
@@ -90,16 +84,6 @@
           <label>
             Accent Color:
             <input type="color" id="accent-color" value="#666">
-          </label>
-        </div>
-        <div class="settings-row">
-          <label>
-            Background Color:
-            <select id="background-color">
-              <option value="#f4f4f9">Light Grey</option>
-              <option value="#ffffff">White</option>
-              <option value="#333333">Dark Grey</option>
-            </select>
           </label>
         </div>
         <div class="settings-row">
