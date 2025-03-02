@@ -36,11 +36,17 @@ body.dark-mode .container {
   color: #fff;
 }
 
-/* Top Plane */
-.top-plane {
-  height: 10px;
+/* Banner */
+.banner {
   background: var(--accent-color);
-  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.banner h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 1.5em;
 }
 
 /* Tab Content */
@@ -124,13 +130,13 @@ body.dark-mode .container {
   resize: vertical;
 }
 
-#notes-list {
+#notes-list, #folders-list {
   list-style: none;
   padding: 0;
   width: 100%;
 }
 
-#notes-list li {
+#notes-list li, #folders-list li {
   padding: 10px;
   background: #f9f9f9;
   border: 1px solid #ddd;
@@ -139,6 +145,13 @@ body.dark-mode .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+}
+
+.notes-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .font-controls {
