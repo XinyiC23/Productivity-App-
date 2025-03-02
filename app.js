@@ -53,35 +53,80 @@ document.getElementById('add-task').addEventListener('click', () => {
   if (taskInput.value.trim() !== '') {
     const li = document.createElement('li');
     li.textContent = taskInput.value;
+    li.addEventListener('click', () => {
+      li.classList.toggle('completed');
+    });
     taskList.appendChild(li);
     taskInput.value = '';
   }
 });
 
+document.getElementById('clear-completed').addEventListener('click', () => {
+  const completedTasks = document.querySelectorAll('#task-list li.completed');
+  completedTasks.forEach(task => task.remove());
+});
+
+// Pomodoro Timer Logic
+let pomodoroInterval;
+let pomodoroTimeLeft = 25 * 60;
+let isWorkTime = true;
+
+document.getElementById('start-pomodoro').addEventListener('click', () => {
+  if (!pomodoroInterval) {
+    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
+    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
+    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
+    pomodoroInterval = setInterval(updatePomodoro, 1000);
+  }
+});
+
+document.getElementById('reset-pomodoro').addEventListener('click', () => {
+  clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
+  pomodoroTimeLeft = 25 * 60;
+  updatePomodoroDisplay();
+});
+
+function updatePomodoro() {
+  if (pomodoroTimeLeft > 0) {
+    pomodoroTimeLeft--;
+    updatePomodoroDisplay();
+  } else {
+    clearInterval(pomodoroInterval);
+    pomodoroInterval = null;
+    isWorkTime = !isWorkTime;
+    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
+    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
+    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
+    updatePomodoroDisplay();
+  }
+}
+
+function updatePomodoroDisplay() {
+  const minutes = Math.floor(pomodoroTimeLeft / 60);
+  const seconds = pomodoroTimeLeft % 60;
+  document.getElementById('pomodoro-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
 // Notes Logic
 document.getElementById('save-notes').addEventListener('click', () => {
   const notes = document.getElementById('notes-input').value;
-  localStorage.setItem('savedNotes', notes);
-  alert('Notes saved!');
+  if (notes.trim() !== '') {
+    const li = document.createElement('li');
+    li.textContent = notes;
+    li.addEventListener('click', () => {
+      li.remove();
+    });
+    document.getElementById('notes-list').appendChild(li);
+    document.getElementById('notes-input').value = '';
+  }
 });
-
-// Load saved notes
-document.getElementById('notes-input').value = localStorage.getItem('savedNotes') || '';
 
 // Settings Logic
 document.getElementById('dark-mode').addEventListener('change', (e) => {
   document.body.classList.toggle('dark-mode', e.target.checked);
 });
 
-document.getElementById('timer-duration').addEventListener('change', (e) => {
-  timeLeft = parseInt(e.target.value);
-  updateTimerDisplay();
-});
-
-document.getElementById('pomodoro-work').addEventListener('change', (e) => {
-  // Update Pomodoro work duration
-});
-
-document.getElementById('pomodoro-break').addEventListener('change', (e) => {
-  // Update Pomodoro break duration
+document.getElementById('accent-color').addEventListener('change', (e) => {
+  document.documentElement.style.setProperty('--accent-color', e.target.value);
 });
