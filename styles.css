@@ -28,6 +28,13 @@ body.dark-mode .container {
   color: #fff;
 }
 
+/* Top Plane */
+.top-plane {
+  height: 10px;
+  background: var(--accent-color);
+  width: 100%;
+}
+
 /* Tab Content */
 .tab-content {
   flex: 1;
@@ -168,6 +175,11 @@ body.dark-mode .tab-button {
 .tab-button.active {
   color: var(--accent-color);
   border-bottom: 2px solid var(--accent-color);
+}
+
+/* Settings */
+.settings-row {
+  margin: 10px 0;
 }
 
 /* Accent Color */
