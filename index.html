@@ -15,12 +15,23 @@
 
     <!-- Tab Content -->
     <div class="tab-content">
-      <!-- Timer Tab -->
-      <div id="timer" class="tab-pane active">
-        <h2>Timer</h2>
-        <div id="timer-display">00:00</div>
-        <button id="start-timer">Start</button>
-        <button id="reset-timer">Reset</button>
+      <!-- Focus Tab (Timer + Pomodoro) -->
+      <div id="focus" class="tab-pane active">
+        <h2>Focus</h2>
+        <!-- Timer Section -->
+        <div class="section">
+          <h3>Timer</h3>
+          <div id="timer-display">00:00</div>
+          <button id="start-timer">Start</button>
+          <button id="reset-timer">Reset</button>
+        </div>
+        <!-- Pomodoro Section -->
+        <div class="section">
+          <h3>Pomodoro</h3>
+          <div id="pomodoro-display" contenteditable="true">25:00</div>
+          <button id="start-pomodoro">Start</button>
+          <button id="reset-pomodoro">Reset</button>
+        </div>
       </div>
 
       <!-- To-Do Tab -->
@@ -30,14 +41,6 @@
         <button id="add-task">Add</button>
         <ul id="task-list"></ul>
         <button id="clear-completed">Clear Completed</button>
-      </div>
-
-      <!-- Pomodoro Tab -->
-      <div id="pomodoro" class="tab-pane">
-        <h2>Pomodoro Timer</h2>
-        <div id="pomodoro-display" contenteditable="true">25:00</div>
-        <button id="start-pomodoro">Start</button>
-        <button id="reset-pomodoro">Reset</button>
       </div>
 
       <!-- Notes Tab -->
@@ -105,9 +108,8 @@
 
     <!-- Bottom Navigation -->
     <nav>
-      <button class="tab-button active" data-tab="timer">⏱️ Timer</button>
+      <button class="tab-button active" data-tab="focus">🎯 Focus</button>
       <button class="tab-button" data-tab="todo">✅ To-Do</button>
-      <button class="tab-button" data-tab="pomodoro">🍅 Pomodoro</button>
       <button class="tab-button" data-tab="notes">📝 Notes</button>
       <button class="tab-button" data-tab="settings">⚙️ Settings</button>
     </nav>
