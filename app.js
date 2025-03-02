@@ -1,6 +1,7 @@
 // Tab Navigation
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabPanes = document.querySelectorAll('.tab-pane');
+const pageTitle = document.getElementById('page-title');
 
 tabButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -12,6 +13,7 @@ tabButtons.forEach(button => {
     button.classList.add('active');
     const tabId = button.getAttribute('data-tab');
     document.getElementById(tabId).classList.add('active');
+    pageTitle.textContent = button.textContent.trim();
   });
 });
 
@@ -23,6 +25,11 @@ document.getElementById('start-timer').addEventListener('click', () => {
   if (!timerInterval) {
     timerInterval = setInterval(updateTimer, 1000);
   }
+});
+
+document.getElementById('stop-timer').addEventListener('click', () => {
+  clearInterval(timerInterval);
+  timerInterval = null;
 });
 
 document.getElementById('reset-timer').addEventListener('click', () => {
@@ -57,6 +64,11 @@ document.getElementById('start-pomodoro').addEventListener('click', () => {
   if (!pomodoroInterval) {
     pomodoroInterval = setInterval(updatePomodoro, 1000);
   }
+});
+
+document.getElementById('stop-pomodoro').addEventListener('click', () => {
+  clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
 });
 
 document.getElementById('reset-pomodoro').addEventListener('click', () => {
@@ -123,13 +135,53 @@ document.getElementById('clear-completed').addEventListener('click', () => {
 });
 
 // Notes Logic
+let isSelectMode = false;
+let selectedNotes = [];
+
+document.getElementById('select-notes').addEventListener('click', () => {
+  isSelectMode = !isSelectMode;
+  document.getElementById('select-notes').textContent = isSelectMode ? 'Cancel' : 'Select';
+  if (!isSelectMode) {
+    selectedNotes = [];
+    document.querySelectorAll('#notes-list li').forEach(note => {
+      note.classList.remove('selected');
+    });
+  }
+});
+
+document.getElementById('notes-list').addEventListener('click', (e) => {
+  if (isSelectMode && e.target.tagName === 'LI') {
+    e.target.classList.toggle('selected');
+    if (e.target.classList.contains('selected')) {
+      selectedNotes.push(e.target);
+    } else {
+      selectedNotes = selectedNotes.filter(note => note !== e.target);
+    }
+  }
+});
+
+document.getElementById('create-folder').addEventListener('click', () => {
+  const folderName = prompt('Enter folder name:') || 'Untitled';
+  const folder = document.createElement('li');
+  folder.textContent = folderName;
+  folder.classList.add('folder');
+  folder.addEventListener('click', () => {
+    // Open folder (to be implemented)
+  });
+  document.getElementById('folders-list').appendChild(folder);
+});
+
 document.getElementById('save-notes').addEventListener('click', () => {
   const notes = document.getElementById('notes-input').value;
   if (notes.trim() !== '') {
     const li = document.createElement('li');
     li.textContent = notes;
     li.addEventListener('click', () => {
-      li.remove();
+      if (isSelectMode) {
+        li.classList.toggle('selected');
+      } else {
+        // Open note (to be implemented)
+      }
     });
     document.getElementById('notes-list').appendChild(li);
     document.getElementById('notes-input').value = '';
