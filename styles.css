@@ -176,6 +176,17 @@ body.dark-mode {
   cursor: pointer;
 }
 
+.folder-notes-list {
+  display: none;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.folder-notes-list.open {
+  display: block;
+}
+
 .notes-controls {
   display: flex;
   justify-content: space-between;
