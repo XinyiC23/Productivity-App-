@@ -178,6 +178,31 @@ document.getElementById('save-notes').addEventListener('click', () => {
   }
 });
 
+// Delete Selected Notes
+document.getElementById('delete-notes').addEventListener('click', () => {
+  selectedNotes.forEach(note => note.remove());
+  selectedNotes = [];
+  isSelectMode = false;
+  document.getElementById('select-notes').textContent = 'Select';
+});
+
+// Move Selected Notes to Folder
+document.getElementById('move-to-folder').addEventListener('click', () => {
+  const folderName = prompt('Enter folder name to move notes to:') || 'Untitled';
+  const folder = document.createElement('div');
+  folder.className = 'folder';
+  folder.textContent = folderName;
+  folder.addEventListener('click', () => {
+    // Open folder (to be implemented)
+  });
+  selectedNotes.forEach(note => {
+    folder.appendChild(note);
+  });
+  document.getElementById('folders-list').appendChild(folder);
+  selectedNotes = [];
+  isSelectMode = false;
+  document.getElementById('select-notes').textContent = 'Select';
+});
 // Font Controls
 document.getElementById('font-select').addEventListener('change', (e) => {
   document.getElementById('notes-input').style.fontFamily = e.target.value;
