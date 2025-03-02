@@ -15,38 +15,63 @@ tabButtons.forEach(button => {
   });
 });
 
-// Timer Logic
-let timerInterval;
-let timeLeft = 60;
+// Pomodoro Timer Logic
+let pomodoroInterval;
+let pomodoroTimeLeft = 25 * 60; // Default work duration
+let isWorkTime = true;
 
-document.getElementById('start-timer').addEventListener('click', () => {
-  if (!timerInterval) {
-    timerInterval = setInterval(updateTimer, 1000);
+document.getElementById('start-pomodoro').addEventListener('click', () => {
+  if (!pomodoroInterval) {
+    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
+    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
+    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
+    pomodoroInterval = setInterval(updatePomodoro, 1000);
   }
 });
 
-document.getElementById('reset-timer').addEventListener('click', () => {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  timeLeft = 60;
-  updateTimerDisplay();
+document.getElementById('reset-pomodoro').addEventListener('click', () => {
+  clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
+  pomodoroTimeLeft = 25 * 60; // Reset to default work duration
+  updatePomodoroDisplay();
 });
 
-function updateTimer() {
-  if (timeLeft > 0) {
-    timeLeft--;
-    updateTimerDisplay();
+function updatePomodoro() {
+  if (pomodoroTimeLeft > 0) {
+    pomodoroTimeLeft--;
+    updatePomodoroDisplay();
   } else {
-    clearInterval(timerInterval);
-    timerInterval = null;
+    clearInterval(pomodoroInterval);
+    pomodoroInterval = null;
+    isWorkTime = !isWorkTime; // Switch between work and break
+    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
+    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
+    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
+    updatePomodoroDisplay();
   }
 }
 
-function updateTimerDisplay() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  document.getElementById('timer-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+function updatePomodoroDisplay() {
+  const minutes = Math.floor(pomodoroTimeLeft / 60);
+  const seconds = pomodoroTimeLeft % 60;
+  document.getElementById('pomodoro-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
+
+// Allow editing the countdown by clicking on it
+document.getElementById('pomodoro-display').addEventListener('click', () => {
+  const display = document.getElementById('pomodoro-display');
+  display.contentEditable = true;
+  display.focus();
+});
+
+document.getElementById('pomodoro-display').addEventListener('blur', () => {
+  const display = document.getElementById('pomodoro-display');
+  const time = display.textContent.split(':');
+  const minutes = parseInt(time[0]) || 0;
+  const seconds = parseInt(time[1]) || 0;
+  pomodoroTimeLeft = minutes * 60 + seconds;
+  display.contentEditable = false;
+});
 
 // To-Do List Logic
 document.getElementById('add-task').addEventListener('click', () => {
