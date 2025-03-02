@@ -218,6 +218,7 @@ document.getElementById('save-notes').addEventListener('click', () => {
     document.getElementById('notes-input').value = '';
   }
 });
+
 // Font Controls
 document.getElementById('font-select').addEventListener('change', (e) => {
   document.getElementById('notes-input').style.fontFamily = e.target.value;
