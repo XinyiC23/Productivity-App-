@@ -1,35 +1,54 @@
+// Tab Navigation
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabPanes = document.querySelectorAll('.tab-pane');
+
+tabButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+    button.classList.add('active');
+    document.getElementById(button.dataset.tab).classList.add('active');
+  });
+});
+
 // Timer Logic
 let timerInterval;
-let timeLeft = 0;
+let timeLeft = 60;
 
-document.getElementById('startTimer').addEventListener('click', () => {
+document.getElementById('start-timer').addEventListener('click', () => {
   if (!timerInterval) {
     timerInterval = setInterval(updateTimer, 1000);
   }
 });
 
-document.getElementById('resetTimer').addEventListener('click', () => {
+document.getElementById('reset-timer').addEventListener('click', () => {
   clearInterval(timerInterval);
   timerInterval = null;
-  timeLeft = 0;
+  timeLeft = 60;
   updateTimerDisplay();
 });
 
 function updateTimer() {
-  timeLeft++;
-  updateTimerDisplay();
+  if (timeLeft > 0) {
+    timeLeft--;
+    updateTimerDisplay();
+  } else {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 }
 
 function updateTimerDisplay() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-  document.getElementById('timer').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  document.getElementById('timer-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 // To-Do List Logic
-document.getElementById('addTask').addEventListener('click', () => {
-  const taskInput = document.getElementById('taskInput');
-  const taskList = document.getElementById('taskList');
+document.getElementById('add-task').addEventListener('click', () => {
+  const taskInput = document.getElementById('task-input');
+  const taskList = document.getElementById('task-list');
 
   if (taskInput.value.trim() !== '') {
     const li = document.createElement('li');
@@ -40,11 +59,29 @@ document.getElementById('addTask').addEventListener('click', () => {
 });
 
 // Notes Logic
-document.getElementById('saveNotes').addEventListener('click', () => {
-  const notes = document.getElementById('notes').value;
+document.getElementById('save-notes').addEventListener('click', () => {
+  const notes = document.getElementById('notes-input').value;
   localStorage.setItem('savedNotes', notes);
   alert('Notes saved!');
 });
 
 // Load saved notes
-document.getElementById('notes').value = localStorage.getItem('savedNotes') || '';
+document.getElementById('notes-input').value = localStorage.getItem('savedNotes') || '';
+
+// Settings Logic
+document.getElementById('dark-mode').addEventListener('change', (e) => {
+  document.body.classList.toggle('dark-mode', e.target.checked);
+});
+
+document.getElementById('timer-duration').addEventListener('change', (e) => {
+  timeLeft = parseInt(e.target.value);
+  updateTimerDisplay();
+});
+
+document.getElementById('pomodoro-work').addEventListener('change', (e) => {
+  // Update Pomodoro work duration
+});
+
+document.getElementById('pomodoro-break').addEventListener('change', (e) => {
+  // Update Pomodoro break duration
+});
