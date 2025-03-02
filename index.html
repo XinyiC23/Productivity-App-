@@ -32,15 +32,7 @@
       <!-- Pomodoro Tab -->
       <div id="pomodoro" class="tab-pane">
         <h2>Pomodoro Timer</h2>
-        <div id="pomodoro-display">25:00</div>
-        <label>
-          Work Duration (minutes):
-          <input type="number" id="pomodoro-work" value="25">
-        </label>
-        <label>
-          Break Duration (minutes):
-          <input type="number" id="pomodoro-break" value="5">
-        </label>
+        <div id="pomodoro-display" contenteditable="true">25:00</div>
         <button id="start-pomodoro">Start</button>
         <button id="reset-pomodoro">Reset</button>
       </div>
@@ -50,6 +42,24 @@
         <h2>Notes</h2>
         <textarea id="notes-input" placeholder="Write your notes here..."></textarea>
         <button id="save-notes">Save</button>
+        <div class="font-controls">
+          <label>
+            Font:
+            <select id="font-select">
+              <option value="Arial">Arial</option>
+              <option value="Poppins">Poppins</option>
+              <option value="Courier New">Courier New</option>
+            </select>
+          </label>
+          <label>
+            Size:
+            <input type="number" id="font-size" value="16" min="10" max="50">
+          </label>
+          <label>
+            Color:
+            <input type="color" id="font-color" value="#000000">
+          </label>
+        </div>
         <ul id="notes-list"></ul>
       </div>
 
