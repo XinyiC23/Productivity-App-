@@ -10,6 +10,9 @@
 </head>
 <body>
   <div class="container">
+    <!-- Top Plane -->
+    <div class="top-plane"></div>
+
     <!-- Tab Content -->
     <div class="tab-content">
       <!-- Timer Tab -->
@@ -46,9 +49,9 @@
           <label>
             Font:
             <select id="font-select">
-              <option value="Arial">Arial</option>
               <option value="Poppins">Poppins</option>
-              <option value="Courier New">Courier New</option>
+              <option value="Roboto">Roboto</option>
+              <option value="Montserrat">Montserrat</option>
             </select>
           </label>
           <label>
@@ -66,13 +69,37 @@
       <!-- Settings Tab -->
       <div id="settings" class="tab-pane">
         <h2>Settings</h2>
-        <label>
-          <input type="checkbox" id="dark-mode"> Dark Mode
-        </label>
-        <label>
-          Accent Color:
-          <input type="color" id="accent-color" value="#666">
-        </label>
+        <div class="settings-row">
+          <label>
+            <input type="checkbox" id="dark-mode"> Dark Mode
+          </label>
+        </div>
+        <div class="settings-row">
+          <label>
+            Accent Color:
+            <input type="color" id="accent-color" value="#666">
+          </label>
+        </div>
+        <div class="settings-row">
+          <label>
+            Background Color:
+            <select id="background-color">
+              <option value="#f4f4f9">Light Grey</option>
+              <option value="#ffffff">White</option>
+              <option value="#333333">Dark Grey</option>
+            </select>
+          </label>
+        </div>
+        <div class="settings-row">
+          <label>
+            Theme:
+            <select id="theme-select">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+              <option value="custom">Custom</option>
+            </select>
+          </label>
+        </div>
       </div>
     </div>
 
