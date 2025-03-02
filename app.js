@@ -15,6 +15,60 @@ tabButtons.forEach(button => {
   });
 });
 
+// Timer Logic
+let timerInterval;
+let timeLeft = 60;
+
+document.getElementById('start-timer').addEventListener('click', () => {
+  if (!timerInterval) {
+    timerInterval = setInterval(updateTimer, 1000);
+  }
+});
+
+document.getElementById('reset-timer').addEventListener('click', () => {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timeLeft = 60;
+  updateTimerDisplay();
+});
+
+function updateTimer() {
+  if (timeLeft > 0) {
+    timeLeft--;
+    updateTimerDisplay();
+  } else {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  document.getElementById('timer-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// To-Do List Logic
+document.getElementById('add-task').addEventListener('click', () => {
+  const taskInput = document.getElementById('task-input');
+  const taskList = document.getElementById('task-list');
+
+  if (taskInput.value.trim() !== '') {
+    const li = document.createElement('li');
+    li.textContent = taskInput.value;
+    li.addEventListener('click', () => {
+      li.classList.toggle('completed');
+    });
+    taskList.appendChild(li);
+    taskInput.value = '';
+  }
+});
+
+document.getElementById('clear-completed').addEventListener('click', () => {
+  const completedTasks = document.querySelectorAll('#task-list li.completed');
+  completedTasks.forEach(task => task.remove());
+});
+
 // Pomodoro Timer Logic
 let pomodoroInterval;
 let pomodoroTimeLeft = 25 * 60; // Default work duration
@@ -22,9 +76,6 @@ let isWorkTime = true;
 
 document.getElementById('start-pomodoro').addEventListener('click', () => {
   if (!pomodoroInterval) {
-    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
-    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
-    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
     pomodoroInterval = setInterval(updatePomodoro, 1000);
   }
 });
@@ -44,9 +95,7 @@ function updatePomodoro() {
     clearInterval(pomodoroInterval);
     pomodoroInterval = null;
     isWorkTime = !isWorkTime; // Switch between work and break
-    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
-    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
-    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
+    pomodoroTimeLeft = isWorkTime ? 25 * 60 : 5 * 60; // Default work and break durations
     updatePomodoroDisplay();
   }
 }
@@ -72,69 +121,6 @@ document.getElementById('pomodoro-display').addEventListener('blur', () => {
   pomodoroTimeLeft = minutes * 60 + seconds;
   display.contentEditable = false;
 });
-
-// To-Do List Logic
-document.getElementById('add-task').addEventListener('click', () => {
-  const taskInput = document.getElementById('task-input');
-  const taskList = document.getElementById('task-list');
-
-  if (taskInput.value.trim() !== '') {
-    const li = document.createElement('li');
-    li.textContent = taskInput.value;
-    li.addEventListener('click', () => {
-      li.classList.toggle('completed');
-    });
-    taskList.appendChild(li);
-    taskInput.value = '';
-  }
-});
-
-document.getElementById('clear-completed').addEventListener('click', () => {
-  const completedTasks = document.querySelectorAll('#task-list li.completed');
-  completedTasks.forEach(task => task.remove());
-});
-
-// Pomodoro Timer Logic
-let pomodoroInterval;
-let pomodoroTimeLeft = 25 * 60;
-let isWorkTime = true;
-
-document.getElementById('start-pomodoro').addEventListener('click', () => {
-  if (!pomodoroInterval) {
-    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
-    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
-    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
-    pomodoroInterval = setInterval(updatePomodoro, 1000);
-  }
-});
-
-document.getElementById('reset-pomodoro').addEventListener('click', () => {
-  clearInterval(pomodoroInterval);
-  pomodoroInterval = null;
-  pomodoroTimeLeft = 25 * 60;
-  updatePomodoroDisplay();
-});
-
-function updatePomodoro() {
-  if (pomodoroTimeLeft > 0) {
-    pomodoroTimeLeft--;
-    updatePomodoroDisplay();
-  } else {
-    clearInterval(pomodoroInterval);
-    pomodoroInterval = null;
-    isWorkTime = !isWorkTime;
-    const workDuration = parseInt(document.getElementById('pomodoro-work').value) * 60;
-    const breakDuration = parseInt(document.getElementById('pomodoro-break').value) * 60;
-    pomodoroTimeLeft = isWorkTime ? workDuration : breakDuration;
-    updatePomodoroDisplay();
-  }
-}
-
-function updatePomodoroDisplay() {
-  const minutes = Math.floor(pomodoroTimeLeft / 60);
-  const seconds = pomodoroTimeLeft % 60;
-  document.getElementById('pomodoro-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
 
 // Notes Logic
 document.getElementById('save-notes').addEventListener('click', () => {
