@@ -218,31 +218,6 @@ document.getElementById('save-notes').addEventListener('click', () => {
     document.getElementById('notes-input').value = '';
   }
 });
-// Open Folder
-document.getElementById('folders-list').addEventListener('click', (e) => {
-  if (e.target.classList.contains('folder')) {
-    const folderNotesList = e.target.querySelector('.folder-notes-list');
-    if (folderNotesList) {
-      folderNotesList.classList.toggle('open');
-    }
-  }
-});
-
-// Save Notes
-document.getElementById('save-notes').addEventListener('click', () => {
-  const notes = document.getElementById('notes-input').value;
-  if (notes.trim() !== '') {
-    const li = document.createElement('li');
-    li.textContent = notes;
-    li.addEventListener('click', () => {
-      if (isSelectMode) {
-        li.classList.toggle('selected');
-      }
-    });
-    document.getElementById('notes-list').appendChild(li);
-    document.getElementById('notes-input').value = '';
-  }
-});
 // Font Controls
 document.getElementById('font-select').addEventListener('change', (e) => {
   document.getElementById('notes-input').style.fontFamily = e.target.value;
