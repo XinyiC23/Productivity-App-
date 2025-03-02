@@ -150,6 +150,32 @@ body.dark-mode {
   cursor: pointer;
 }
 
+#notes-list li.selectable {
+  position: relative;
+}
+
+#notes-list li.selectable::after {
+  content: '✖';
+  position: absolute;
+  right: 10px;
+  color: red;
+  font-size: 1.2em;
+}
+
+#notes-list li.selected {
+  background: #e0e0e0;
+}
+
+.folder {
+  padding: 15px;
+  background: #e0e0e0;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
 .notes-controls {
   display: flex;
   justify-content: space-between;
