@@ -146,3 +146,19 @@ document.getElementById('dark-mode').addEventListener('change', (e) => {
 document.getElementById('accent-color').addEventListener('change', (e) => {
   document.documentElement.style.setProperty('--accent-color', e.target.value);
 });
+
+document.getElementById('background-color').addEventListener('change', (e) => {
+  document.body.style.backgroundColor = e.target.value;
+});
+
+document.getElementById('theme-select').addEventListener('change', (e) => {
+  if (e.target.value === 'light') {
+    document.body.classList.remove('dark-mode');
+    document.body.style.backgroundColor = '#f4f4f9';
+  } else if (e.target.value === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.body.style.backgroundColor = '#333';
+  } else {
+    document.body.style.backgroundColor = '#ffffff';
+  }
+});
