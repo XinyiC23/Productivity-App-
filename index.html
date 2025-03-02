@@ -9,19 +9,6 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Productivity App</h1>
-    </header>
-
-    <!-- Tabs -->
-    <nav>
-      <button class="tab-button active" data-tab="timer">Timer</button>
-      <button class="tab-button" data-tab="todo">To-Do</button>
-      <button class="tab-button" data-tab="pomodoro">Pomodoro</button>
-      <button class="tab-button" data-tab="notes">Notes</button>
-      <button class="tab-button" data-tab="settings">Settings</button>
-    </nav>
-
     <!-- Tab Content -->
     <div class="tab-content">
       <!-- Timer Tab -->
@@ -38,12 +25,21 @@
         <input type="text" id="task-input" placeholder="Add a new task">
         <button id="add-task">Add</button>
         <ul id="task-list"></ul>
+        <button id="clear-completed">Clear Completed</button>
       </div>
 
       <!-- Pomodoro Tab -->
       <div id="pomodoro" class="tab-pane">
         <h2>Pomodoro Timer</h2>
         <div id="pomodoro-display">25:00</div>
+        <label>
+          Work Duration (minutes):
+          <input type="number" id="pomodoro-work" value="25">
+        </label>
+        <label>
+          Break Duration (minutes):
+          <input type="number" id="pomodoro-break" value="5">
+        </label>
         <button id="start-pomodoro">Start</button>
         <button id="reset-pomodoro">Reset</button>
       </div>
@@ -53,6 +49,7 @@
         <h2>Notes</h2>
         <textarea id="notes-input" placeholder="Write your notes here..."></textarea>
         <button id="save-notes">Save</button>
+        <ul id="notes-list"></ul>
       </div>
 
       <!-- Settings Tab -->
@@ -62,19 +59,20 @@
           <input type="checkbox" id="dark-mode"> Dark Mode
         </label>
         <label>
-          Timer Duration (seconds):
-          <input type="number" id="timer-duration" value="60">
-        </label>
-        <label>
-          Pomodoro Work Duration (minutes):
-          <input type="number" id="pomodoro-work" value="25">
-        </label>
-        <label>
-          Pomodoro Break Duration (minutes):
-          <input type="number" id="pomodoro-break" value="5">
+          Accent Color:
+          <input type="color" id="accent-color" value="#007bff">
         </label>
       </div>
     </div>
+
+    <!-- Bottom Navigation -->
+    <nav>
+      <button class="tab-button active" data-tab="timer">⏱️ Timer</button>
+      <button class="tab-button" data-tab="todo">✅ To-Do</button>
+      <button class="tab-button" data-tab="pomodoro">🍅 Pomodoro</button>
+      <button class="tab-button" data-tab="notes">📝 Notes</button>
+      <button class="tab-button" data-tab="settings">⚙️ Settings</button>
+    </nav>
   </div>
 
   <script src="app.js"></script>
