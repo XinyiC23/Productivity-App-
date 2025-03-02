@@ -13,4 +13,4 @@ A simple productivity app with a timer, to-do list, and notes. Built with HTML, 
 2. Add it to your home screen for easy access.
 
 ## Live Demo
-[View the app on GitHub Pages](https://yourusername.github.io/ProductivityApp)
+[View the app on GitHub Pages](https://xinyic23.github.io/Productivity-App-/)
