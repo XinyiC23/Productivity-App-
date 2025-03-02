@@ -48,27 +48,6 @@ function updateTimerDisplay() {
   document.getElementById('timer-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
-// To-Do List Logic
-document.getElementById('add-task').addEventListener('click', () => {
-  const taskInput = document.getElementById('task-input');
-  const taskList = document.getElementById('task-list');
-
-  if (taskInput.value.trim() !== '') {
-    const li = document.createElement('li');
-    li.textContent = taskInput.value;
-    li.addEventListener('click', () => {
-      li.classList.toggle('completed');
-    });
-    taskList.appendChild(li);
-    taskInput.value = '';
-  }
-});
-
-document.getElementById('clear-completed').addEventListener('click', () => {
-  const completedTasks = document.querySelectorAll('#task-list li.completed');
-  completedTasks.forEach(task => task.remove());
-});
-
 // Pomodoro Timer Logic
 let pomodoroInterval;
 let pomodoroTimeLeft = 25 * 60; // Default work duration
@@ -120,6 +99,27 @@ document.getElementById('pomodoro-display').addEventListener('blur', () => {
   const seconds = parseInt(time[1]) || 0;
   pomodoroTimeLeft = minutes * 60 + seconds;
   display.contentEditable = false;
+});
+
+// To-Do List Logic
+document.getElementById('add-task').addEventListener('click', () => {
+  const taskInput = document.getElementById('task-input');
+  const taskList = document.getElementById('task-list');
+
+  if (taskInput.value.trim() !== '') {
+    const li = document.createElement('li');
+    li.textContent = taskInput.value;
+    li.addEventListener('click', () => {
+      li.classList.toggle('completed');
+    });
+    taskList.appendChild(li);
+    taskInput.value = '';
+  }
+});
+
+document.getElementById('clear-completed').addEventListener('click', () => {
+  const completedTasks = document.querySelectorAll('#task-list li.completed');
+  completedTasks.forEach(task => task.remove());
 });
 
 // Notes Logic
