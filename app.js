@@ -133,6 +133,7 @@ document.getElementById('clear-completed').addEventListener('click', () => {
 let isSelectMode = false;
 let selectedNotes = [];
 
+// Toggle Select Mode
 document.getElementById('select-notes').addEventListener('click', () => {
   isSelectMode = !isSelectMode;
   document.getElementById('select-notes').textContent = isSelectMode ? 'Unselect' : 'Select';
@@ -141,6 +142,7 @@ document.getElementById('select-notes').addEventListener('click', () => {
   });
 });
 
+// Select Notes
 document.getElementById('notes-list').addEventListener('click', (e) => {
   if (isSelectMode && e.target.tagName === 'LI') {
     e.target.classList.toggle('selected');
@@ -152,17 +154,56 @@ document.getElementById('notes-list').addEventListener('click', (e) => {
   }
 });
 
+// Delete Selected Notes
+document.getElementById('delete-notes').addEventListener('click', () => {
+  selectedNotes.forEach(note => note.remove());
+  selectedNotes = [];
+  isSelectMode = false;
+  document.getElementById('select-notes').textContent = 'Select';
+});
+
+// Create Folder and Move Selected Notes
 document.getElementById('create-folder').addEventListener('click', () => {
+  if (selectedNotes.length === 0) {
+    alert('No notes selected!');
+    return;
+  }
+
   const folderName = prompt('Enter folder name:') || 'Untitled';
   const folder = document.createElement('div');
   folder.className = 'folder';
   folder.textContent = folderName;
-  folder.addEventListener('click', () => {
-    // Open folder (to be implemented)
+
+  // Create a list inside the folder to hold notes
+  const folderNotesList = document.createElement('ul');
+  folderNotesList.className = 'folder-notes-list';
+
+  // Move selected notes into the folder
+  selectedNotes.forEach(note => {
+    folderNotesList.appendChild(note.cloneNode(true));
+    note.remove();
   });
+
+  folder.appendChild(folderNotesList);
   document.getElementById('folders-list').appendChild(folder);
+
+  // Clear selection
+  selectedNotes = [];
+  isSelectMode = false;
+  document.getElementById('select-notes').textContent = 'Select';
 });
 
+// Open Folder
+document.getElementById('folders-list').addEventListener('click', (e) => {
+  if (e.target.classList.contains('folder')) {
+    const folderNotesList = e.target.querySelector('.folder-notes-list');
+    if (folderNotesList) {
+      folderNotesList.classList.toggle('open');
+    }
+  }
+});
+
+// Save Notes
 document.getElementById('save-notes').addEventListener('click', () => {
   const notes = document.getElementById('notes-input').value;
   if (notes.trim() !== '') {
@@ -176,32 +217,6 @@ document.getElementById('save-notes').addEventListener('click', () => {
     document.getElementById('notes-list').appendChild(li);
     document.getElementById('notes-input').value = '';
   }
-});
-
-// Delete Selected Notes
-document.getElementById('delete-notes').addEventListener('click', () => {
-  selectedNotes.forEach(note => note.remove());
-  selectedNotes = [];
-  isSelectMode = false;
-  document.getElementById('select-notes').textContent = 'Select';
-});
-
-// Move Selected Notes to Folder
-document.getElementById('move-to-folder').addEventListener('click', () => {
-  const folderName = prompt('Enter folder name to move notes to:') || 'Untitled';
-  const folder = document.createElement('div');
-  folder.className = 'folder';
-  folder.textContent = folderName;
-  folder.addEventListener('click', () => {
-    // Open folder (to be implemented)
-  });
-  selectedNotes.forEach(note => {
-    folder.appendChild(note);
-  });
-  document.getElementById('folders-list').appendChild(folder);
-  selectedNotes = [];
-  isSelectMode = false;
-  document.getElementById('select-notes').textContent = 'Select';
 });
 // Font Controls
 document.getElementById('font-select').addEventListener('change', (e) => {
