@@ -19,7 +19,7 @@ tabButtons.forEach(button => {
 
 // Timer Logic
 let timerInterval;
-let timeLeft = 60;
+let timeLeft = 0;
 
 document.getElementById('start-timer').addEventListener('click', () => {
   if (!timerInterval) {
@@ -35,18 +35,13 @@ document.getElementById('stop-timer').addEventListener('click', () => {
 document.getElementById('reset-timer').addEventListener('click', () => {
   clearInterval(timerInterval);
   timerInterval = null;
-  timeLeft = 60;
+  timeLeft = 0;
   updateTimerDisplay();
 });
 
 function updateTimer() {
-  if (timeLeft > 0) {
-    timeLeft--;
-    updateTimerDisplay();
-  } else {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
+  timeLeft++;
+  updateTimerDisplay();
 }
 
 function updateTimerDisplay() {
@@ -140,13 +135,10 @@ let selectedNotes = [];
 
 document.getElementById('select-notes').addEventListener('click', () => {
   isSelectMode = !isSelectMode;
-  document.getElementById('select-notes').textContent = isSelectMode ? 'Cancel' : 'Select';
-  if (!isSelectMode) {
-    selectedNotes = [];
-    document.querySelectorAll('#notes-list li').forEach(note => {
-      note.classList.remove('selected');
-    });
-  }
+  document.getElementById('select-notes').textContent = isSelectMode ? 'Unselect' : 'Select';
+  document.querySelectorAll('#notes-list li').forEach(note => {
+    note.classList.toggle('selectable', isSelectMode);
+  });
 });
 
 document.getElementById('notes-list').addEventListener('click', (e) => {
@@ -162,9 +154,9 @@ document.getElementById('notes-list').addEventListener('click', (e) => {
 
 document.getElementById('create-folder').addEventListener('click', () => {
   const folderName = prompt('Enter folder name:') || 'Untitled';
-  const folder = document.createElement('li');
+  const folder = document.createElement('div');
+  folder.className = 'folder';
   folder.textContent = folderName;
-  folder.classList.add('folder');
   folder.addEventListener('click', () => {
     // Open folder (to be implemented)
   });
@@ -179,8 +171,6 @@ document.getElementById('save-notes').addEventListener('click', () => {
     li.addEventListener('click', () => {
       if (isSelectMode) {
         li.classList.toggle('selected');
-      } else {
-        // Open note (to be implemented)
       }
     });
     document.getElementById('notes-list').appendChild(li);
@@ -208,20 +198,20 @@ document.getElementById('dark-mode').addEventListener('change', (e) => {
 
 document.getElementById('accent-color').addEventListener('change', (e) => {
   document.documentElement.style.setProperty('--accent-color', e.target.value);
-});
-
-document.getElementById('background-color').addEventListener('change', (e) => {
-  document.body.style.backgroundColor = e.target.value;
+  document.documentElement.style.setProperty('--background-color', e.target.value);
 });
 
 document.getElementById('theme-select').addEventListener('change', (e) => {
   if (e.target.value === 'light') {
     document.body.classList.remove('dark-mode');
-    document.body.style.backgroundColor = '#f4f4f9';
+    document.documentElement.style.setProperty('--background-color', '#f4f4f9');
+    document.documentElement.style.setProperty('--text-color', '#333');
   } else if (e.target.value === 'dark') {
     document.body.classList.add('dark-mode');
-    document.body.style.backgroundColor = '#333';
+    document.documentElement.style.setProperty('--background-color', '#333');
+    document.documentElement.style.setProperty('--text-color', '#fff');
   } else {
-    document.body.style.backgroundColor = '#ffffff';
+    document.documentElement.style.setProperty('--background-color', '#ffffff');
+    document.documentElement.style.setProperty('--text-color', '#000');
   }
 });
