@@ -63,18 +63,18 @@ body.dark-mode .container {
   display: block;
 }
 
-/* Timer */
-#timer-display {
+/* Focus Tab (Timer + Pomodoro) */
+.section {
+  margin-bottom: 20px;
+}
+
+#timer-display, #pomodoro-display {
   font-size: 3em;
   text-align: center;
   margin: 20px 0;
 }
 
-/* Pomodoro Timer */
 #pomodoro-display {
-  font-size: 4em;
-  text-align: center;
-  margin: 20px 0;
   cursor: pointer;
 }
 
