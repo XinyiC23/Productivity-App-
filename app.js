@@ -125,6 +125,19 @@ document.getElementById('save-notes').addEventListener('click', () => {
   }
 });
 
+// Font Controls
+document.getElementById('font-select').addEventListener('change', (e) => {
+  document.getElementById('notes-input').style.fontFamily = e.target.value;
+});
+
+document.getElementById('font-size').addEventListener('change', (e) => {
+  document.getElementById('notes-input').style.fontSize = `${e.target.value}px`;
+});
+
+document.getElementById('font-color').addEventListener('change', (e) => {
+  document.getElementById('notes-input').style.color = e.target.value;
+});
+
 // Settings Logic
 document.getElementById('dark-mode').addEventListener('change', (e) => {
   document.body.classList.toggle('dark-mode', e.target.checked);
